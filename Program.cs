@@ -81,7 +81,9 @@ static async void Start()
     string password;
     long count = 1;
 
-    if (File.Exists("emailconfig.cfg"))
+    string dir = $@"{Environment.GetEnvironmentVariable("appdata")}\Kips\Fetch IP";
+
+    if (File.Exists($@"{dir}\emailconfig.cfg"))
     {
         data = LoadConfig();
         email = data[0];
@@ -115,12 +117,15 @@ static async void Start()
 
 static async Task SaveConfig(string[] data)
 {
-    await File.WriteAllLinesAsync("emailconfig.cfg", data);
+    string dir = $@"{Environment.GetEnvironmentVariable("appdata")}\Kips\Fetch IP";
+    if (!Directory.Exists(dir)) Directory.CreateDirectory(dir);
+    await File.WriteAllLinesAsync($@"{dir}\emailconfig.cfg", data);
 }
 
 static string[] LoadConfig()
 {
-    return File.ReadAllLines("emailconfig.cfg");
+    string dir = $@"{Environment.GetEnvironmentVariable("appdata")}\Kips\Fetch IP";
+    return File.ReadAllLines($@"{dir}\emailconfig.cfg");
 }
 
 Start();
