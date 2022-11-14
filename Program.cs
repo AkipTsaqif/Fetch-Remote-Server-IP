@@ -110,6 +110,7 @@ static async void Start()
 
     if (e.IsValid(email) && e.IsValid(destination) && !string.IsNullOrEmpty(password)) 
     {
+        data[3] = count.ToString();
         SendMail(email, destination, password, count);
         await SaveConfig(data);
     }
